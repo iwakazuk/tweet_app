@@ -21,7 +21,7 @@ class UsersController < ApplicationController
       email: params[:email],
       image_name: "default_user.jpg",
       password: params[:password]
-      )
+    )
     if @user.save
       session[:user_id] = @user.id
       flash[:notice] = "ユーザー登録が完了しました"
@@ -39,13 +39,13 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     @user.name = params[:name]
     @user.email = params[:email]
-
+    
     if params[:image]
       @user.image_name = "#{@user.id}.jpg"
       image = params[:image]
       File.binwrite("public/user_images/#{@user.image_name}", image.read)
     end
-
+    
     if @user.save
       flash[:notice] = "ユーザー情報を編集しました"
       redirect_to("/users/#{@user.id}")
@@ -77,8 +77,13 @@ class UsersController < ApplicationController
     redirect_to("/login")
   end
   
+  def likes
+    @user = User.find_by(id: params[:id])
+    @likes = Like.where(user_id: @user.id)
+  end
+  
   def ensure_correct_user
-    if params[:id].to_i != @current_user.id
+    if @current_user.id != params[:id].to_i
       flash[:notice] = "権限がありません"
       redirect_to("/posts/index")
     end
