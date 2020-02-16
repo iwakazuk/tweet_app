@@ -20,7 +20,7 @@ class UsersController < ApplicationController
       name: params[:name],
       email: params[:email],
       image_name: "default_user.jpg",
-      password: params[:password]
+      reset_password_token: params[:reset_password_token]
     )
     if @user.save
       session[:user_id] = @user.id
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
   end
   
   def login
-    @user = User.find_by(email: params[:email], password: params[:password])
+    @user = User.find_by(email: params[:email], reset_password_token: params[:reset_password_token])
     if @user
       session[:user_id] = @user.id
       flash[:notice] = "ログインしました"
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
     else
       @error_message = "メールアドレスまたはパスワードが間違っています"
       @email = params[:email]
-      @password = params[:password]
+      @password = params[:reset_password_token]
       render("users/login_form")
     end
   end

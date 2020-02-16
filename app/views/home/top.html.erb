@@ -1,6 +1,24 @@
 <div class="main top-main">
     <div class="top-message">
-        <h2>つぶやきで世界は変わる</h2>
-        <p>今の気持ちを呟いてみよう</p>
+        <div class =>
+        <h2>Tweet_App(仮)</h2>
+        <p>Let's mutter your feelings now</p>
     </div>
+</div>
+<div class="main posts-index">
+  <div class="container">
+    <% @posts.each do |post| %>
+      <div class="posts-index-item">
+        <div class="post-left">
+          <img src="<%= "/user_images/#{post.user.image_name}" %>">
+        </div>
+        <div class="post-right">
+          <div class="post-user-name">
+            <%= link_to(post.user.name, "/users/#{post.user.id}") %>
+          </div>
+          <%= link_to(post.content, "/posts/#{post.id}") %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
