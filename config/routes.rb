@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   root "home#top"
   get "about" => "home#about"
+  get "home/index" => "home#index"
 
   get "posts/new" => "posts#new"
   post "posts/create" => "posts#create"

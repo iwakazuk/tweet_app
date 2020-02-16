@@ -1,19 +1,18 @@
 <div class="main top-main">
+  <div class="top-title">
     <div class="top-message">
-        <div class =>
         <h2>Tweet_App(仮)</h2>
         <p>Let's mutter your feelings now</p>
     </div>
-</div>
-<div class="main posts-index">
-  <div class="container">
+  </div>
+  <div class="top-container">
     <% @posts.each do |post| %>
-      <div class="posts-index-item">
-        <div class="post-left">
+      <div class="top-index-item">
+        <div class="top-left">
           <img src="<%= "/user_images/#{post.user.image_name}" %>">
         </div>
-        <div class="post-right">
-          <div class="post-user-name">
+        <div class="top-right">
+          <div class="top-user-name">
             <%= link_to(post.user.name, "/users/#{post.user.id}") %>
           </div>
           <%= link_to(post.content, "/posts/#{post.id}") %>
