@@ -19,8 +19,15 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(
       content: params[:content],
-      user_id: @current_user.id
+      user_id: @current_user.id,
+      img: nil
     )
+    if params[:post_image]
+      @post.img = "#{@post.id}.jpg"
+      img = params[:img]
+      File.binwrite("public/post_images/#{@post.img}",img.read)
+    end
+
     if @post.save
       flash[:notice] = "投稿を作成しました"
       redirect_to("/posts/index")
@@ -58,5 +65,5 @@ class PostsController < ApplicationController
       redirect_to("/posts/index")
     end
   end
-  
+
 end
