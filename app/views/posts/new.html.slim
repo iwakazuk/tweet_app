@@ -2,13 +2,7 @@
   .container
     h1.form-heading
       | 投稿する
-    = form_tag("/posts/create",{multipart:true}) do
-      .form
-        .form-body
-          - @post.errors.full_messages.each do |message|
-            .form-error
-              = message
-          textarea[name="content"]
-            = @post.content
-          input[type="file" name="post_image"]
-          input[type="submit" value="投稿"]
+    = form_with model: @posts,local: true do |form|
+      = render "image_file", {form: form, tweet: @tweet}
+      = render "form", form: form
+      .buttn = form.submit
