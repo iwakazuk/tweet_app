@@ -1,0 +1,18 @@
+.main.top-main
+  .top-title
+    .top-message
+      h2
+        | Tweet_App(仮)
+      p
+        | Let's mutter your feelings now
+  .container
+    - @posts.each do |post|
+      .top-index-item
+        .top-left
+          |  <img src="
+          = "/user_images/#{post.user.image_name}"
+          | "> 
+        .top-right
+          .top-user-name
+            = link_to(post.user.name, "/users/#{post.user.id}")
+          = link_to(post.content, "/posts/#{post.id}")
