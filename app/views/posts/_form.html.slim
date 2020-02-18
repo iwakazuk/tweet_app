@@ -1,15 +1,3 @@
-.images_div
-  .image
-    = form.label :image
-    - if post.post_image?
-      .file_div onClick = "$('.file').click()"
-        = image_tag post.post_image.thumb.url, id: :img_prev
-    - else
-      .file_div onClick = "$('.file').click()"
-        = image_tag "nofile.png", id: :img_prev
-    = form.file_field :image, class: "file"
-    = form.hidden_field :image_cache
-    - if controller.action_name == 'edit' && post.post_image?
-      .remove_img_div
-        = form.check_box :remove_image, class: "check_box"
-        = form.label :remove_image
+.field
+  = form.label :text
+  = form.text_area :body, rows: 3, cols: 35, id: 'post_body'

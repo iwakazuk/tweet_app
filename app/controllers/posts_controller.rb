@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   end
   
   def show
-    @post = Post.find_by(id: params[:id])
+    @post = Post.find(id: params[:id])
     @user = @post.user
     @likes_count = Like.where(post_id: @post.id).count
   end
@@ -17,17 +17,8 @@ class PostsController < ApplicationController
   end
   
   def create
-    @post = Post.new(
-      content: params[:content],
-      user_id: @current_user.id
-    )
-
-    if params[:image]
-      @post.post_image = "#{@post.id}.jpg"
-      image = params[:image]
-      File.binwrite("public/images/#{@post.image}",image.read)
-    end
-
+    @post = Post.new(post_params)
+    @post.user_id = current_user.id
     if @post.save
       flash[:notice] = "投稿を作成しました"
       redirect_to("/posts/index")
@@ -64,6 +55,13 @@ class PostsController < ApplicationController
       flash[:notice] = "権限がありません"
       redirect_to("/posts/index")
     end
+  end
+
+  def post_params
+    params.require(:post).permit(
+      :content,
+      :image,
+    )
   end
 
 end
